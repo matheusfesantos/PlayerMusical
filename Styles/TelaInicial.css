@@ -1,0 +1,37 @@
+#titulo-label {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color: silver;
+    -fx-font-weight: bold;
+    -fx-padding: 20px;
+    -fx-font-size: 20px;
+    -fx-border-width: 2px;
+}
+
+#iniciar-button, #sobre-button {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color: silver;
+    -fx-font-size: 20px;
+    -fx-border-width: 2px;
+    -fx-font-weight: bold;
+}
+
+#iniciar-button:hover, #sobre-button:hover {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-color: white;
+}
+
+#footer {
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-text-fill: black;
+}
+
+#rodape {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
