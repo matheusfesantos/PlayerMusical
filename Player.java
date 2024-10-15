@@ -30,6 +30,7 @@ public class Player extends Application {
         listaMusicas = new ArrayList<>();
         listaMusicas.add(new Musicas());
         listaMusicas.add(Musicas.criarMusicaDontStopTilYouGetEnough());
+        listaMusicas.add(Musicas.criarMusicaSaudadesMil());
 
         Musicas musica = listaMusicas.get(musicaAtualIndex);
 
@@ -59,6 +60,9 @@ public class Player extends Application {
         albumImageView.setPreserveRatio(true);
         vbox.getChildren().add(albumImageView);
 
+        Label proximaMusicaLabel = new Label("Próxima Música: " + getProximaMusica().getNomeMusica());
+        vbox.getChildren().add(proximaMusicaLabel);
+
         Region space1 = new Region();
         space1.setPrefHeight(50);
         vbox.getChildren().add(space1);
@@ -72,7 +76,7 @@ public class Player extends Application {
         musicaAnterior.setOnAction(e -> {
             if (musicaAtualIndex > 0) {
                 musicaAtualIndex--;
-                atualizarMusica(vbox);
+                atualizarMusica(vbox, proximaMusicaLabel);
             } else {
                 System.out.println("Não há música anterior.");
             }
@@ -91,7 +95,7 @@ public class Player extends Application {
         proximaMusica.setOnAction(e -> {
             if (musicaAtualIndex < listaMusicas.size() - 1) {
                 musicaAtualIndex++;
-                atualizarMusica(vbox);
+                atualizarMusica(vbox, proximaMusicaLabel);
             } else {
                 System.out.println("Não há próxima música.");
             }
@@ -140,7 +144,7 @@ public class Player extends Application {
         }
     }
 
-    private void atualizarMusica(VBox vbox) {
+    private void atualizarMusica(VBox vbox, Label proximaMusicaLabel) {
         Musicas musica = listaMusicas.get(musicaAtualIndex);
 
         ((Label) vbox.getChildren().get(0)).setText("Artista: " + musica.getArtista());
@@ -151,6 +155,15 @@ public class Player extends Application {
         ((ImageView) vbox.getChildren().get(3)).setImage(albumImage);
 
         tocarMusica(musica);
+        proximaMusicaLabel.setText("Próxima Música: " + getProximaMusica().getNomeMusica());
+    }
+
+    private Musicas getProximaMusica() {
+        if (musicaAtualIndex < listaMusicas.size() - 1) {
+            return listaMusicas.get(musicaAtualIndex + 1);
+        } else {
+            return listaMusicas.get(musicaAtualIndex);
+        }
     }
 
     public static void main(String[] args) {

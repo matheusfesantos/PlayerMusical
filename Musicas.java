@@ -1,39 +1,36 @@
-import java.io.File;
-
 public class Musicas {
-    private final String caminhoMusica;
-    private final String artista;
-    private final String album;
-    private final String caminhoFotoAlbum;
-    private final String nomeMusica;
+    private String caminhoMusica;
+    private String artista;
+    private String album;
+    private String nomeMusica;
+    private String caminhoFotoAlbum;
 
     public Musicas() {
-        this("C:\\Users\\matheus.fgs\\Desktop\\PlayerMusical\\Musicas\\MichealJackson\\Xcape\\Chicago.mp3",
-                "Micheal Jackson", "Xscape",
-                "C:\\Users\\matheus.fgs\\Desktop\\PlayerMusical\\Musicas\\MichealJackson\\Xcape\\Xcape_Album_Image.png",
-                "Chicago");
-    }
-
-    public Musicas(String caminhoMusica, String artista, String album, String caminhoFotoAlbum, String nomeMusica) {
-        if (new File(caminhoMusica).exists() && new File(caminhoFotoAlbum).exists()) {
-            this.caminhoMusica = caminhoMusica;
-            this.artista = artista;
-            this.album = album;
-            this.caminhoFotoAlbum = caminhoFotoAlbum;
-            this.nomeMusica = nomeMusica;
-        } else {
-            throw new IllegalArgumentException("IMAGEM AVISANDO QUE NÃO FOI ENCONTRADA A IMAGEM DO ALBUM");
-        }
+        this.caminhoMusica = "C:\\Users\\matheus.fgs\\Desktop\\PlayerMusical\\Musicas\\Micheal_Jackson\\Xcape\\Chicago.mp3";
+        this.artista = "Michael Jackson";
+        this.album = "Xcape";
+        this.nomeMusica = "Chicago";
+        this.caminhoFotoAlbum = "C:\\Users\\matheus.fgs\\Desktop\\PlayerMusical\\Musicas\\Micheal_Jackson\\Xcape\\XcapeAlbumImage.png";
     }
 
     public static Musicas criarMusicaDontStopTilYouGetEnough() {
-        return new Musicas(
-                "C:\\Users\\matheus.fgs\\Desktop\\PlayerMusical\\Musicas\\MichealJackson\\OffTheWall\\Don_t Stop _Til You Get Enough(MP3_320K).mp3",
-                "Micheal Jackson",
-                "Off The Wall",
-                "C:\\Users\\matheus.fgs\\Desktop\\PlayerMusical\\Musicas\\MichealJackson\\OffTheWall\\OffTheWallAlbumImage.png",
-                "Don't Stop 'Til You Get Enough"
-        );
+        Musicas musica = new Musicas();
+        musica.caminhoMusica = "C:\\Users\\matheus.fgs\\Desktop\\PlayerMusical\\Musicas\\Micheal_Jackson\\OffTheWall\\Don_t _Stop _Til You_Get_Enough.mp3";
+        musica.artista = "Michael Jackson";
+        musica.album = "Off the Wall";
+        musica.nomeMusica = "Don't Stop 'Til You Get Enough";
+        musica.caminhoFotoAlbum = "C:\\Users\\matheus.fgs\\Desktop\\PlayerMusical\\Musicas\\Micheal_Jackson\\OffTheWall\\OffTheWallImage.png";
+        return musica;
+    }
+
+    public static Musicas criarMusicaSaudadesMil() {
+        Musicas musica = new Musicas();
+        musica.caminhoMusica = "C:\\Users\\matheus.fgs\\Desktop\\PlayerMusical\\Musicas\\Dexter\\Proverbios13\\Saudades_Mill.mp3";
+        musica.artista = "Dexter";
+        musica.album = "Proverbios 13";
+        musica.nomeMusica = "Saudades Mil";
+        musica.caminhoFotoAlbum = "C:\\Users\\matheus.fgs\\Desktop\\PlayerMusical\\Musicas\\Dexter\\Proverbios13\\AlbumImage.png";
+        return musica;
     }
 
     public String getCaminhoMusica() {
@@ -48,16 +45,11 @@ public class Musicas {
         return album;
     }
 
-    public String getCaminhoFotoAlbum() {
-        return caminhoFotoAlbum;
-    }
-
     public String getNomeMusica() {
         return nomeMusica;
     }
 
-    @Override
-    public String toString() {
-        return "Música: " + nomeMusica + " | Artista: " + artista + " | Álbum: " + album;
+    public String getCaminhoFotoAlbum() {
+        return caminhoFotoAlbum;
     }
 }
