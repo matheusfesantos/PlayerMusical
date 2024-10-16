@@ -20,7 +20,7 @@ O Player Musical é um projeto em desenvolvimento, criado por um amante da músi
 
 Este projeto está em fase inicial e será aberto para contribuições futuras. Se você deseja colaborar, sinta-se à vontade para entrar em contato para novas ideias !
 
-##📧 Contato
+## 📧 Contato
 
 Para sugestões ou dúvidas, entre em contato comigo através do meu GitHub.
 
