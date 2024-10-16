@@ -1,6 +1,5 @@
 # 🎵 Player Musical 🎶
 
-**Descrição:**  
 O Player Musical é um projeto em desenvolvimento, criado por um amante da música 🎧. A proposta é oferecer uma interface inovadora e diferente do comum para a reprodução de músicas. Este projeto ainda está em fase de ideação, mas pretende se tornar uma ferramenta incrível para os usuários de dispositivos móveis 📱.
 
 ## 🛠 Tecnologias Utilizadas
