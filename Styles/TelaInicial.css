@@ -10,6 +10,10 @@
     -fx-border-width: 2px;
 }
 
+#ProximoAlbum{
+    -fx-opacity: 1;
+}
+
 #iniciar-button, #sobre-button {
     -fx-background-color: white;
     -fx-background-radius: 20px;

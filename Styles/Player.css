@@ -1,15 +1,24 @@
+#Artista, #Album-Label, #Musica-Label{
+    -fx-text-fill: silver;
+}
+
 #Vbox {
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 17px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 2, 0, 1, 1); /* Sombras para o texto */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 2, 0, 1, 1);
+    -fx-spacing: 20px;
 }
 
 #AlbumImage {
     -fx-border-color: white;
     -fx-border-width: 3px;
-    -fx-fit-width: 200; /* Definindo a largura */
-    -fx-fit-height: 200; /* Definindo a altura */
+    -fx-fit-width: 200;
+    -fx-fit-height: 200;
+}
+
+#ProximoAlbum, #AnteriorAlbum {
+    -fx-opacity: 0.5;
 }
 
 #player-button, #proximaMusica, #musicaAnterior {
@@ -20,22 +29,22 @@
     -fx-font-size: 20px;
     -fx-border-width: 2px;
     -fx-font-weight: bold;
-    -fx-transition: all 0.3s; /* Transição suave */
+    -fx-transition: all 0.3s;
 }
 
 #player-button:hover, #proximaMusica:hover, #musicaAnterior:hover {
     -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-border-color: white;
-    -fx-scale-x: 1.1; /* Aumenta o botão */
-    -fx-scale-y: 1.1; /* Aumenta o botão */
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
 }
 
 #footer {
     -fx-background-color: rgba(255, 255, 255, 0.8);
     -fx-text-fill: black;
-    -fx-padding: 10px; /* Espaçamento interno */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0, 0, 1); /* Sombras no rodapé */
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0, 0, 1);
 }
 
 #rodape {

@@ -1,3 +1,4 @@
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,11 +9,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,7 +33,9 @@ public class Player extends Application {
         listaMusicas.add(Musicas.criarMusicaDontStopTilYouGetEnough());
         listaMusicas.add(Musicas.criarMusicaSaudadesMil());
 
-        Musicas musica = listaMusicas.get(musicaAtualIndex);
+        Musicas musicaAtual = listaMusicas.get(musicaAtualIndex);
+        Musicas musicAnterior = getMusicaAnterior();
+        Musicas proximaMusica = getProximaMusica();
 
         BorderPane player = new BorderPane();
         player.setStyle("-fx-background-image: url('" + getClass().getResource("/Styles/Imagens/Space.gif").toExternalForm() + "');" +
@@ -43,40 +46,50 @@ public class Player extends Application {
         vbox.setPadding(new Insets(20));
         vbox.setId("Vbox");
 
-        Label artistaLabel = new Label("Artista: " + musica.getArtista());
-        vbox.getChildren().add(artistaLabel);
+        Label artistaLabel = new Label("Artista: " + musicaAtual.getArtista());
+        artistaLabel.setId("Artista");
+        Label albumLabel = new Label("Álbum: " + musicaAtual.getAlbum());
+        albumLabel.setId("Album-Label");
+        Label musicaLabel = new Label("Música: " + musicaAtual.getNomeMusica());
+        musicaLabel.setId("Musica-Label");
+        vbox.getChildren().addAll(artistaLabel, albumLabel, musicaLabel);
 
-        Label albumLabel = new Label("Álbum: " + musica.getAlbum());
-        vbox.getChildren().add(albumLabel);
-
-        Label musicaLabel = new Label("Música: " + musica.getNomeMusica());
-        vbox.getChildren().add(musicaLabel);
+        ImageView anteriorAlbumImageView = new ImageView();
+        Image anteriorAlbumImage = new Image("file:" + musicAnterior.getCaminhoFotoAlbum());
+        anteriorAlbumImageView.setImage(anteriorAlbumImage);
+        anteriorAlbumImageView.setFitWidth(150);
+        anteriorAlbumImageView.setPreserveRatio(true);
+        anteriorAlbumImageView.setId("AnteriorAlbum");
 
         ImageView albumImageView = new ImageView();
-        Image albumImage = new Image("file:" + musica.getCaminhoFotoAlbum());
-        albumImageView.setId("AlbumImage");
+        Image albumImage = new Image("file:" + musicaAtual.getCaminhoFotoAlbum());
         albumImageView.setImage(albumImage);
         albumImageView.setFitWidth(200);
         albumImageView.setPreserveRatio(true);
-        vbox.getChildren().add(albumImageView);
+        albumImageView.setId("AlbumImage");
 
-        Label proximaMusicaLabel = new Label("Próxima Música: " + getProximaMusica().getNomeMusica());
-        vbox.getChildren().add(proximaMusicaLabel);
+        ImageView proximaAlbumImageView = new ImageView();
+        Image proximaAlbumImage = new Image("file:" + proximaMusica.getCaminhoFotoAlbum());
+        proximaAlbumImageView.setImage(proximaAlbumImage);
+        proximaAlbumImageView.setFitWidth(150);
+        proximaAlbumImageView.setPreserveRatio(true);
+        proximaAlbumImageView.setId("ProximoAlbum");
 
-        Region space1 = new Region();
-        space1.setPrefHeight(50);
-        vbox.getChildren().add(space1);
+        HBox albumsBox = new HBox(20);
+        albumsBox.setAlignment(Pos.CENTER);
+        albumsBox.getChildren().addAll(anteriorAlbumImageView, albumImageView, proximaAlbumImageView);
+
+        vbox.getChildren().add(albumsBox);
 
         HBox controlsBox = new HBox(20);
         controlsBox.setAlignment(Pos.CENTER);
 
         Button musicaAnterior = new Button("Música Anterior");
         musicaAnterior.setId("musicaAnterior");
-        controlsBox.getChildren().add(musicaAnterior);
         musicaAnterior.setOnAction(e -> {
             if (musicaAtualIndex > 0) {
                 musicaAtualIndex--;
-                atualizarMusica(vbox, proximaMusicaLabel);
+                atualizarMusica(vbox);
             } else {
                 System.out.println("Não há música anterior.");
             }
@@ -84,23 +97,20 @@ public class Player extends Application {
 
         Button iniciar = new Button("Tocar");
         iniciar.setId("player-button");
-        controlsBox.getChildren().add(iniciar);
-        iniciar.setOnAction(e -> {
-            tocarMusica(musica);
-        });
+        iniciar.setOnAction(e -> tocarMusica(musicaAtual));
 
-        Button proximaMusica = new Button("Próxima Música");
-        proximaMusica.setId("proximaMusica");
-        controlsBox.getChildren().add(proximaMusica);
-        proximaMusica.setOnAction(e -> {
+        Button proximaMusicaButton = new Button("Próxima Música");
+        proximaMusicaButton.setId("proximaMusica");
+        proximaMusicaButton.setOnAction(e -> {
             if (musicaAtualIndex < listaMusicas.size() - 1) {
                 musicaAtualIndex++;
-                atualizarMusica(vbox, proximaMusicaLabel);
+                atualizarMusica(vbox);
             } else {
                 System.out.println("Não há próxima música.");
             }
         });
 
+        controlsBox.getChildren().addAll(musicaAnterior, iniciar, proximaMusicaButton);
         vbox.getChildren().add(controlsBox);
 
         player.setCenter(vbox);
@@ -144,18 +154,52 @@ public class Player extends Application {
         }
     }
 
-    private void atualizarMusica(VBox vbox, Label proximaMusicaLabel) {
-        Musicas musica = listaMusicas.get(musicaAtualIndex);
+    private void atualizarMusica(VBox vbox) {
+        Musicas musicaAtual = listaMusicas.get(musicaAtualIndex);
+        Musicas musicaAnterior = getMusicaAnterior();
+        Musicas proximaMusica = getProximaMusica();
 
-        ((Label) vbox.getChildren().get(0)).setText("Artista: " + musica.getArtista());
-        ((Label) vbox.getChildren().get(1)).setText("Álbum: " + musica.getAlbum());
-        ((Label) vbox.getChildren().get(2)).setText("Música: " + musica.getNomeMusica());
+        ((Label) vbox.getChildren().get(0)).setText("Artista: " + musicaAtual.getArtista());
+        ((Label) vbox.getChildren().get(1)).setText("Álbum: " + musicaAtual.getAlbum());
+        ((Label) vbox.getChildren().get(2)).setText("Música: " + musicaAtual.getNomeMusica());
 
-        Image albumImage = new Image("file:" + musica.getCaminhoFotoAlbum());
-        ((ImageView) vbox.getChildren().get(3)).setImage(albumImage);
+        Image anteriorAlbumImage = new Image("file:" + musicaAnterior.getCaminhoFotoAlbum());
+        ((ImageView) ((HBox) vbox.getChildren().get(3)).getChildren().get(0)).setImage(anteriorAlbumImage);
 
-        tocarMusica(musica);
-        proximaMusicaLabel.setText("Próxima Música: " + getProximaMusica().getNomeMusica());
+        // Animar a troca da imagem do álbum atual
+        Image albumImage = new Image("file:" + musicaAtual.getCaminhoFotoAlbum());
+        ImageView albumImageView = (ImageView) ((HBox) vbox.getChildren().get(3)).getChildren().get(1);
+        animarTrocaAlbum(albumImageView, albumImage);
+
+        Image proximaAlbumImage = new Image("file:" + proximaMusica.getCaminhoFotoAlbum());
+        ((ImageView) ((HBox) vbox.getChildren().get(3)).getChildren().get(2)).setImage(proximaAlbumImage);
+
+        tocarMusica(musicaAtual);
+    }
+
+    private void animarTrocaAlbum(ImageView albumImageView, Image novaImagem) {
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(300), albumImageView);
+        fadeOut.setFromValue(1.0);
+        fadeOut.setToValue(0.0);
+
+        fadeOut.setOnFinished(event -> {
+            albumImageView.setImage(novaImagem);
+
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(300), albumImageView);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeIn.play();
+        });
+
+        fadeOut.play();
+    }
+
+    private Musicas getMusicaAnterior() {
+        if (musicaAtualIndex > 0) {
+            return listaMusicas.get(musicaAtualIndex - 1);
+        } else {
+            return listaMusicas.get(musicaAtualIndex);
+        }
     }
 
     private Musicas getProximaMusica() {

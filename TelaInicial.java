@@ -13,7 +13,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class TelaInicial extends Application {
-
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("PlayerMusical");
