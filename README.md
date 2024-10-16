@@ -4,7 +4,9 @@ O Player Musical é um projeto em desenvolvimento, criado por um amante da músi
 
 ## 🛠 Tecnologias Utilizadas
 
+- **Java**: Para a lógica de negócios e manipulação de mídia.
 - **JavaFX**: Para a construção da interface gráfica.
+- **CSS**: Para a estilização da interface, proporcionando uma experiência visual agradável.
 - **Media Player**: Para a reprodução de músicas.
 
 ## 🎨 Funcionalidades
@@ -18,9 +20,9 @@ O Player Musical é um projeto em desenvolvimento, criado por um amante da músi
 
 Este projeto está em fase inicial e será aberto para contribuições futuras. Se você deseja colaborar, sinta-se à vontade para entrar em contato para novas ideias !
 
-## 📄 Licença
+##📧 Contato
 
-Este projeto não possui uma licença definida por enquanto.
+Para sugestões ou dúvidas, entre em contato comigo através do meu GitHub.
 
 ## 🌟 Agradecimentos
 
